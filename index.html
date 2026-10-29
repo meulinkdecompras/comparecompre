@@ -181,7 +181,8 @@ function openDet(idx,e){if(e)e.stopPropagation();detIdx=idx;
     +'<div class="st">'+x[0]+'</div><div class="sp">'+precoFmt(x[5])+'</div></a>').join('');
   const det=document.getElementById('det');
   det.style.display='block';
-  window.scrollTo({top:det.offsetTop-110,behavior:'smooth'});}
+  const header=document.querySelector('.busca-wrap').offsetHeight||140;
+  window.scrollTo({top:det.offsetTop-header-8,behavior:'smooth'});}
 function closeDet(){document.getElementById('det').style.display='none';}
 function openGal(idx,e){if(e)e.stopPropagation();
   const g=P[idx][10]&&P[idx][10].length?P[idx][10]:[P[idx][1]];
