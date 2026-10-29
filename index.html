@@ -72,6 +72,25 @@
           border:none;color:#fff;font-size:34px;padding:14px 18px;cursor:pointer;border-radius:10px}
   #lbprev{left:12px}#lbnext{right:12px}
   .lb-nav:hover{background:rgba(255,255,255,.3)}
+  .det{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:none;
+       align-items:center;justify-content:center;padding:14px}
+  .det-box{background:#18222b;border-radius:16px;max-width:560px;width:100%;
+           max-height:90vh;overflow-y:auto;padding:16px}
+  .det-top{display:flex;gap:14px}
+  .det-top img{width:46%;object-fit:contain;background:#fff;border-radius:12px;
+               aspect-ratio:1;cursor:zoom-in;flex:0 0 46%}
+  .det-info{flex:1;display:flex;flex-direction:column;gap:8px}
+  .det-info h3{font-size:15px;line-height:1.35}
+  .det-info .linha{margin-top:auto}
+  .sug-t{font-size:12px;font-weight:800;color:#9fb2bf;margin:14px 0 6px;
+         letter-spacing:.3px;text-transform:uppercase}
+  .sug{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+  .sug a{flex:0 0 108px;background:#101820;border:1px solid #26333f;border-radius:10px;
+         overflow:hidden;text-decoration:none;color:#e8ecf1;cursor:pointer}
+  .sug img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;display:block}
+  .sug .st{font-size:10px;padding:5px 6px 2px;display:-webkit-box;-webkit-line-clamp:2;
+           -webkit-box-orient:vertical;overflow:hidden;line-height:1.25}
+  .sug .sp{font-size:11px;font-weight:800;color:#4ade80;padding:0 6px 6px}
 </style></head>
 <body>
 <div class="banner">
@@ -93,6 +112,20 @@
 <span class="vazio-sub">Já anotamos essa busca — estamos procurando o melhor preço e em ~30min ele aparece aqui. ⏳</span><br>
 <a id="pedir" class="pedir-mini" target="_blank" href="#">quer resposta agora? chama no Telegram</a></p>
 <div class="carregando" id="carregando">carregando ofertas…</div></main>
+<div class="det" id="det" onclick="closeDet()">
+  <div class="det-box" onclick="event.stopPropagation()">
+    <span class="lb-x" onclick="closeDet()" style="position:sticky;float:right">✕</span>
+    <div class="det-top">
+      <img id="dimg" onclick="openGal(detIdx)">
+      <div class="det-info"><h3 id="dtit"></h3>
+        <div class="meta" id="dmeta"></div>
+        <div class="precos" id="dlinhas"></div>
+      </div>
+    </div>
+    <div class="sug-t">💡 Você também pode gostar</div>
+    <div class="sug" id="dsug"></div>
+  </div>
+</div>
 <div class="lb" id="lb" onclick="closeGal()">
   <span class="lb-x">✕</span>
   <img id="lbimg" onclick="event.stopPropagation()">
@@ -108,6 +141,27 @@ const grid=document.getElementById('grid'), vazio=document.getElementById('vazio
       carregando=document.getElementById('carregando');
 const precoFmt=v=>'R$ '+v.toFixed(2).replace('.',',');
 let GAL=[],gi=0;
+let detIdx=0;
+function openDet(idx,e){if(e)e.stopPropagation();detIdx=idx;
+  const p=P[idx],[t,img,n,fonte,laf,preco,po,vend,desc,busca,gal]=p;
+  document.getElementById('dimg').src=img;
+  document.getElementById('dtit').textContent=t;
+  document.getElementById('dmeta').textContent=
+    n.toUpperCase()+' · '+(desc>0?'-'+desc+'% ':'')+(vend>50?vend+'+ vendidos':'');
+  document.getElementById('dlinhas').innerHTML=
+    '<div class="linha"><span class="loja '+(fonte==='Shopee'?'nome-shopee':'nome-ml')+'">'+fonte+'</span>'
+    +'<span class="v">'+precoFmt(preco)+'</span>'
+    +'<a href="'+laf+'" target="_blank" rel="sponsored noopener" style="background:'
+    +(fonte==='ML'?'#3483fa':'#ee4d2d')+'">VER</a></div>';
+  // sugestões: mesmo nicho, maior desconto primeiro, exclui o atual
+  const sugs=P.map((x,i)=>[x,i]).filter(x=>x[0][2]===n&&x[1]!==idx)
+             .sort((a,b)=>b[0][8]-a[0][8]).slice(0,10);
+  document.getElementById('dsug').innerHTML=sugs.map(([x,i])=>
+    '<a onclick="openDet('+i+',event)"><img src="'+x[1]+'" loading="lazy">'
+    +'<div class="st">'+x[0]+'</div><div class="sp">'+precoFmt(x[5])+'</div></a>').join('');
+  document.getElementById('det').style.display='flex';
+  document.getElementById('det').querySelector('.det-box').scrollTop=0;}
+function closeDet(){document.getElementById('det').style.display='none';}
 function openGal(idx,e){if(e)e.stopPropagation();
   const g=P[idx][10]&&P[idx][10].length?P[idx][10]:[P[idx][1]];
   GAL=g;gi=0;
@@ -127,7 +181,7 @@ function cardHtml(p){
   const vendTxt=vend>50?vend+'+ vendidos':'';
   const nomeC=fonte==='Shopee'?'nome-shopee':'nome-ml';
   const nFotos=gal&&gal.length>1?'<span class="fotos-n">📷 '+gal.length+'</span>':'';
-  return '<article class="card" data-n="'+n+'">'
+  return '<article class="card" data-n="'+n+'" onclick="openDet('+idx+',event)" style="cursor:pointer">'
     +'<div class="foto" onclick="openGal('+idx+',event)"><img src="'+img+'" loading="lazy" alt=""'
     +' onerror="this.closest(\'.card\').style.display=\'none\'">'+badge+nFotos+'</div>'
     +'<div class="info"><h3>'+t+'</h3>'
