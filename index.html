@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melhor Compra — compare ML x Shopee e pague menos</title>
+<meta name="description" content="O mesmo produto no Mercado Livre e na Shopee: comparamos preço, specs e mostramos onde está mais barato.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:#0f1419;color:#e8ecf1}
+  .banner{background:linear-gradient(90deg,#f59e0b,#ef4444,#db2777,#f59e0b);
+          background-size:300% 100%;animation:desliza 7s linear infinite;
+          padding:18px 12px 16px;text-align:center;color:#fff}
+  .lojas{display:flex;gap:12px;justify-content:center;align-items:center;
+         font-weight:900;font-size:16px;letter-spacing:.5px;margin-bottom:6px}
+  .lojas i{font-style:normal;color:#fff;opacity:.85;animation:pulsa 1.4s ease-in-out infinite alternate}
+  .ml,.sh{background:linear-gradient(100deg,#fff 35%,#ffe27a 50%,#fff 65%);
+          background-size:220% 100%;-webkit-background-clip:text;background-clip:text;
+          -webkit-text-fill-color:transparent;color:transparent;
+          animation:brilha 2.4s linear infinite;white-space:nowrap}
+  .sh{animation-delay:1.2s}
+  .banner b{display:block;font-size:21px;font-weight:900;letter-spacing:.4px;
+            text-shadow:0 2px 4px rgba(0,0,0,.5);animation:pulsa 1.1s ease-in-out infinite alternate}
+  .banner small{font-size:13px;opacity:.95;font-weight:600}
+  @keyframes desliza{to{background-position:300% 0}}
+  @keyframes pulsa{to{transform:scale(1.06)}}
+  @keyframes brilha{to{background-position:-220% 0}}
+  .busca-wrap{position:sticky;top:0;z-index:9;background:#0f1419;padding:10px 12px 6px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+  #busca{width:100%;padding:13px 16px;font-size:16px;border-radius:12px;border:1px solid #2a3640;background:#18222b;color:#fff;outline:none}
+  #busca:focus{border-color:#14b8a6}
+  .chips{display:flex;gap:7px;overflow-x:auto;padding:9px 2px 3px;scrollbar-width:none}
+  .chip{flex:0 0 auto;padding:6px 13px;border-radius:999px;border:1px solid #33424f;background:#18222b;color:#cbd5dd;font-size:12px;cursor:pointer}
+  .chip.ativo{background:#14b8a6;border-color:#14b8a6;color:#041;text-shadow:0 1px 0 #fff;font-weight:700}
+  .ordem{display:flex;gap:7px;padding:6px 2px 0;align-items:center;font-size:11px;color:#8b98a5}
+  .ordem button{flex:0 0 auto;padding:5px 12px;border-radius:999px;border:1px solid #33424f;background:transparent;color:#cbd5dd;font-size:11px;cursor:pointer}
+  .ordem button.ativo{background:#16a34a;border-color:#16a34a;color:#fff;font-weight:700}
+  main{max-width:1200px;margin:0 auto;padding:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}
+  @media (max-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+  .card{background:#18222b;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .foto{position:relative;aspect-ratio:16/10;background:#fff}
+  .foto img{width:100%;height:100%;object-fit:contain}
+  .off{position:absolute;top:6px;left:6px;background:#e0202b;color:#fff;font-weight:800;font-size:11px;padding:2px 8px;border-radius:999px}
+  .cmp{position:absolute;top:6px;right:6px;background:#0d9488;color:#fff;font-weight:700;font-size:10px;padding:2px 8px;border-radius:999px}
+  .info{padding:9px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .info h3{font-size:12px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .marca{font-size:11px;color:#7dd3fc;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .specs{font-size:10px;color:#9fb2bf;line-height:1.4;padding-left:14px}
+  .uso{font-size:10px;color:#86efac}
+  .meta{font-size:10px;color:#8b98a5}
+  .precos{margin-top:auto;display:flex;flex-direction:column;gap:3px;padding-top:4px}
+  .linha{display:flex;align-items:center;flex-wrap:nowrap;gap:6px;background:#101820;border:1px solid #26333f;border-radius:9px;padding:6px 8px}
+  .linha.melhor{border-color:#16a34a;box-shadow:0 0 0 1px #16a34a inset}
+  .linha.melhor .v{color:#4ade80}
+  .linha.melhor .loja::after{content:'MELHOR';display:block;font-size:8px;color:#4ade80;letter-spacing:.5px}
+  .loja{font-size:10px;font-weight:700;min-width:38px;white-space:nowrap;line-height:1.1}
+  .nome-ml{color:#7cb3fc}.nome-shopee{color:#ff8a70}
+  .linha .v{margin-left:auto;font-weight:800;font-size:14px;white-space:nowrap}
+  .linha a{color:#fff;text-decoration:none;font-weight:800;font-size:10px;padding:6px 9px;border-radius:7px;white-space:nowrap}
+  @media (max-width:600px){
+    .linha{flex-wrap:wrap;gap:4px 6px}
+    .linha a{flex:1 1 100%;text-align:center;padding:7px 6px}
+  }
+  .vazio{text-align:center;color:#8b98a5;padding:40px 10px;display:none}
+  footer{text-align:center;color:#5b6770;font-size:12px;padding:24px 14px}
+</style></head>
+<body>
+<div class="banner">
+  <div class="lojas"><span class="ml">MERCADO LIVRE</span><i>×</i><span class="sh">SHOPEE</span></div>
+  <b>🧒 DIA DAS CRIANÇAS + 10.10</b><small>brinquedos e presentes em dobro — compara e pega o menor preço 👇</small>
+</div>
+<div class="busca-wrap">
+  <input id="busca" type="search" placeholder="🔍 Busque por produto, marca, modelo, código, uso..." autocomplete="off">
+  <div class="chips"><button class="chip ativo" data-nicho="">Todos</button><button class="chip" data-nicho="beleza">Beleza</button><button class="chip" data-nicho="eletronicos">Eletronicos</button><button class="chip" data-nicho="infantil">Infantil</button><button class="chip" data-nicho="moda">Moda</button><button class="chip" data-nicho="outros">Outros</button><button class="chip" data-nicho="pet">Pet</button><button class="chip" data-nicho="saude">Saude</button><button class="chip" data-nicho="sustentavel">Sustentavel</button></div>
+  <div class="ordem">Ordenar:
+    <button data-ord="rel" class="ativo">Destaques</button>
+    <button data-ord="barato">💰 Menor preço</button>
+    <button data-ord="desc">🔥 Maior desconto</button>
+  </div>
+</div>
+<main><div class="grid" id="grid">
+    <article class="card" data-busca="kit c/12 utensílios de cozinha silicone cabo madeira    []  outros ml ml:mlb3274998198" data-nicho="outros"
+             data-preco="39.99" data-desc="0" data-score="250050.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_796617-MLB71831694845_092023-E-kit-c12-utensilios-de-cozinha-silicone-cabo-madeira.webp" alt="Kit C/12 Utensílios De Cozinha Silicone Cabo Madeira" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit C/12 Utensílios De Cozinha Silicone Cabo Madeira</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">250000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 39,99</span>
+                 <a href="https://meli.la/1mAQAj6" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="tênis casual kappa zenit masculino unissex conforto    [] uso pessoal / presente moda ml ml:mlb5408593708" data-nicho="moda"
+             data-preco="91.99" data-desc="0" data-score="100340.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_632789-MLB116693864997_082026-E-tnis-casual-kappa-zenit-masculino-unissex-conforto.webp" alt="Tênis Casual Kappa Zenit Masculino Unissex Conforto" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Tênis Casual Kappa Zenit Masculino Unissex Conforto</h3>
+        
+        
+        <div class="uso">📍 Onde usar: uso pessoal / presente</div>
+        <div class="meta"><span class="vend">100000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 91,99</span>
+                 <a href="https://meli.la/2hJRCFE" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="conjunto fitness virginia top shorts meia coxa cintura alta    [] uso pessoal / presente moda ml ml:mlb5184808828" data-nicho="moda"
+             data-preco="43.50" data-desc="0" data-score="100050.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_794838-MLB91840727710_092025-E-conjunto-fitness-virginia-top-shorts-meia-coxa-cintura-alta.webp" alt="Conjunto Fitness Virginia Top Shorts Meia Coxa Cintura Alta" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Conjunto Fitness Virginia Top Shorts Meia Coxa Cintura Alta</h3>
+        
+        
+        <div class="uso">📍 Onde usar: uso pessoal / presente</div>
+        <div class="meta"><span class="vend">100000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 43,50</span>
+                 <a href="https://meli.la/14kUQUH" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="carregador original samsung turbo s25 s24 s23 s22 s21 25w br    [] dia a dia / trabalho eletronicos ml ml:mlb5211405716" data-nicho="eletronicos"
+             data-preco="130.14" data-desc="0" data-score="50260.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_956529-MLB71084932000_082023-E-carregador-original-samsung-turbo-s25-s24-s23-s22-s21-25w-br.webp" alt="Carregador Original Samsung Turbo S25 S24 S23 S22 S21 25w Br" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Carregador Original Samsung Turbo S25 S24 S23 S22 S21 25w Br</h3>
+        
+        
+        <div class="uso">📍 Onde usar: dia a dia / trabalho</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 130,14</span>
+                 <a href="https://meli.la/1SrEctX" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 3 perfumes cebolinha jequiti 25ml infantil turma da mônica colônia masculina kit prese    [] cuidado pessoal beleza ml ml:mlb4521744289" data-nicho="beleza"
+             data-preco="60.90" data-desc="0" data-score="50150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_735112-MLA115743494554_092026-E.webp" alt="Kit 3 Perfumes Cebolinha Jequiti 25ml Infantil Turma da Mônica Colônia Masculina Kit Prese" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 3 Perfumes Cebolinha Jequiti 25ml Infantil Turma da Mônica Colônia Masculina Kit Prese</h3>
+        
+        
+        <div class="uso">📍 Onde usar: cuidado pessoal</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 60,90</span>
+                 <a href="https://meli.la/1TrunGL" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 3 shorts 2 em 1 duplo bolso para academia treino corrida    [] saúde e bem-estar saude ml ml:mlb6216002052" data-nicho="saude"
+             data-preco="69.00" data-desc="0" data-score="50140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_661954-MLB108142855433_032026-E-kit-3-shorts-2-em-1-duplo-bolso-para-academia-treino-corrida.webp" alt="Kit 3 Shorts 2 Em 1 Duplo Bolso Para Academia Treino Corrida" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 3 Shorts 2 Em 1 Duplo Bolso Para Academia Treino Corrida</h3>
+        
+        
+        <div class="uso">📍 Onde usar: saúde e bem-estar</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 69,00</span>
+                 <a href="https://meli.la/15hovup" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 3 calças feminina legging grossa para academia cós alto    [] saúde e bem-estar saude ml ml:mlb5308367064" data-nicho="saude"
+             data-preco="53.99" data-desc="0" data-score="50130.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_804602-MLB113052632763_062026-E-kit-3-calcas-feminina-legging-grossa-para-academia-cos-alto.webp" alt="Kit 3 Calças Feminina Legging Grossa Para Academia Cós Alto" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 3 Calças Feminina Legging Grossa Para Academia Cós Alto</h3>
+        
+        
+        <div class="uso">📍 Onde usar: saúde e bem-estar</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 53,99</span>
+                 <a href="https://meli.la/2QoH3zq" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="escova secadora 3 em 1 alisadora modeladora 1000w preta e rosa    []  outros ml ml:mlb4487222997" data-nicho="outros"
+             data-preco="49.99" data-desc="0" data-score="50120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_672845-MLA99620362959_112025-E.webp" alt="Escova Secadora 3 em 1 Alisadora Modeladora 1000W Preta e Rosa" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Escova Secadora 3 em 1 Alisadora Modeladora 1000W Preta e Rosa</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 49,99</span>
+                 <a href="https://meli.la/2a18RLE" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="suporte de celular veicular automotivo pra carro mesa porta painel parede caminhão vw up j    [] dia a dia / trabalho eletronicos ml ml:mlb4239882285" data-nicho="eletronicos"
+             data-preco="27.90" data-desc="0" data-score="50120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_688434-MLA107886731106_032026-E.webp" alt="Suporte De Celular Veicular Automotivo Pra Carro Mesa Porta Painel Parede Caminhão Vw Up J" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Suporte De Celular Veicular Automotivo Pra Carro Mesa Porta Painel Parede Caminhão Vw Up J</h3>
+        
+        
+        <div class="uso">📍 Onde usar: dia a dia / trabalho</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 27,90</span>
+                 <a href="https://meli.la/1Z8QKdU" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit com 5 carrinhos sortidos hot wheels coloridos mattel    [] cuidado pessoal beleza ml ml:mlb3910664047" data-nicho="beleza"
+             data-preco="64.50" data-desc="0" data-score="50120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_940549-MLA99850408707_112025-E.webp" alt="Kit Com 5 Carrinhos Sortidos Hot Wheels Coloridos Mattel" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit Com 5 Carrinhos Sortidos Hot Wheels Coloridos Mattel</h3>
+        
+        
+        <div class="uso">📍 Onde usar: cuidado pessoal</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 64,50</span>
+                 <a href="https://meli.la/1jmudhX" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="fone ouvido bluetooth 5.4 sem fio portatil estojo de carregamento anti ruido resistente a     [] dia a dia / trabalho eletronicos ml ml:mlb5758097762" data-nicho="eletronicos"
+             data-preco="47.34" data-desc="0" data-score="50120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_646535-MLA113987983224_072026-E.webp" alt="Fone Ouvido Bluetooth 5.4 Sem Fio Portatil Estojo De Carregamento Anti Ruido Resistente a " loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Fone Ouvido Bluetooth 5.4 Sem Fio Portatil Estojo De Carregamento Anti Ruido Resistente a </h3>
+        
+        
+        <div class="uso">📍 Onde usar: dia a dia / trabalho</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 47,34</span>
+                 <a href="https://meli.la/199BaBt" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="sapatênis , leve de zíper super conforto    [] uso pessoal / presente moda ml ml:mlb3525763765" data-nicho="moda"
+             data-preco="56.54" data-desc="0" data-score="50110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_957872-MLB97351627901_112025-E-sapatnis-leve-de-ziper-super-conforto.webp" alt="Sapatênis , Leve De Zíper Super Conforto" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Sapatênis , Leve De Zíper Super Conforto</h3>
+        
+        
+        <div class="uso">📍 Onde usar: uso pessoal / presente</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 56,54</span>
+                 <a href="https://meli.la/2KDCp3d" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="sérum principia vitamina c-10    [] cuidado pessoal beleza ml ml:mlb1939262990" data-nicho="beleza"
+             data-preco="69.00" data-desc="0" data-score="50110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_786207-MLB97916765070_112025-E--serum-principia-vitamina-c10.webp" alt="Sérum Principia Vitamina C-10" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Sérum Principia Vitamina C-10</h3>
+        
+        
+        <div class="uso">📍 Onde usar: cuidado pessoal</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 69,00</span>
+                 <a href="https://meli.la/2XjYfac" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="sérum principia 10% niacinamida + 1% zinco pca    [] cuidado pessoal beleza ml ml:mlb1745234174" data-nicho="beleza"
+             data-preco="59.00" data-desc="0" data-score="50090.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_958929-MLB96767464033_102025-E--serum-principia-10-niacinamida--1-zinco-pca.webp" alt="Sérum Principia 10% Niacinamida + 1% Zinco Pca" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Sérum Principia 10% Niacinamida + 1% Zinco Pca</h3>
+        
+        
+        <div class="uso">📍 Onde usar: cuidado pessoal</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 59,00</span>
+                 <a href="https://meli.la/1RTrwBC" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="tenis masculino sapatenis polo feet sapato casual promoção    [] uso pessoal / presente moda ml ml:mlb5136589984" data-nicho="moda"
+             data-preco="69.93" data-desc="0" data-score="50090.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_662972-MLB91846117040_092025-E-tenis-masculino-sapatenis-polo-feet-sapato-casual-promoco.webp" alt="Tenis Masculino Sapatenis Polo Feet Sapato Casual Promoção" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Tenis Masculino Sapatenis Polo Feet Sapato Casual Promoção</h3>
+        
+        
+        <div class="uso">📍 Onde usar: uso pessoal / presente</div>
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 69,93</span>
+                 <a href="https://meli.la/27fZ5B2" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="fone de ouvido soundcore by anker p20i graves poderosos e impactantes bluetooth 5.3 30h de    []  outros ml ml:mlb5410852112" data-nicho="outros"
+             data-preco="146.00" data-desc="0" data-score="50020.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_730568-MLA99983575997_112025-E.webp" alt="Fone De Ouvido Soundcore by Anker P20i Graves Poderosos e Impactantes Bluetooth 5.3 30H de" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Fone De Ouvido Soundcore by Anker P20i Graves Poderosos e Impactantes Bluetooth 5.3 30H de</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">50000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 146,00</span>
+                 <a href="https://meli.la/2qa9CXN" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit saida maternidade menino suspensório azul marinho    [] crianças e bebês infantil ml ml:mlb2164592747" data-nicho="infantil"
+             data-preco="82.99" data-desc="0" data-score="10380.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_651700-MLB72866944052_112023-E-kit-saida-maternidade-menino-suspensorio-azul-marinho.webp" alt="Kit Saida Maternidade Menino Suspensório Azul Marinho" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit Saida Maternidade Menino Suspensório Azul Marinho</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 82,99</span>
+                 <a href="https://meli.la/2dbC1jk" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="lego classic maleta da criatividade 10713; brinquedo criativo para montar e imaginar; male    [] crianças e bebês infantil ml ml:mlb2743167754" data-nicho="infantil"
+             data-preco="117.17" data-desc="0" data-score="10270.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_678645-MLA99447823800_112025-E.webp" alt="LEGO Classic Maleta da Criatividade 10713; Brinquedo criativo para montar e imaginar; Male" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>LEGO Classic Maleta da Criatividade 10713; Brinquedo criativo para montar e imaginar; Male</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 117,17</span>
+                 <a href="https://meli.la/2HFyMS6" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="cesto para roupa de bambu dobrável retangular com tampa e alças – macater    []  outros ml ml:mlb4562146603" data-nicho="outros"
+             data-preco="59.99" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_756869-MLA113886361075_062026-E.webp" alt="Cesto para Roupa de Bambu Dobrável Retangular Com Tampa e Alças – Macater" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Cesto para Roupa de Bambu Dobrável Retangular Com Tampa e Alças – Macater</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 59,99</span>
+                 <a href="https://meli.la/1VSD5qD" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="escova secadora space shine mondial lilás 1300w - es-21    []  outros ml ml:mlb4047390953" data-nicho="outros"
+             data-preco="109.24" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_693496-MLA99949977371_112025-E.webp" alt="Escova Secadora Space Shine Mondial Lilás 1300w - ES-21" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Escova Secadora Space Shine Mondial Lilás 1300w - ES-21</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 109,24</span>
+                 <a href="https://meli.la/12fxZGV" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 3 cestos organizadores de bambu retangulares com forro lavável multiuso organizar casa    [] sustentavel sustentavel ml ml:mlb6429093518" data-nicho="sustentavel"
+             data-preco="48.90" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_699679-MLA119495909015_102026-E.webp" alt="Kit 3 Cestos Organizadores de Bambu Retangulares com Forro Lavável Multiuso Organizar Casa" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 3 Cestos Organizadores de Bambu Retangulares com Forro Lavável Multiuso Organizar Casa</h3>
+        
+        
+        <div class="uso">📍 Onde usar: sustentavel</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 48,90</span>
+                 <a href="https://meli.la/2rzpYPS" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="4 brinquedo pet corda resistente interativo cachorro forte    [] seu pet pet ml ml:mlb3227296476" data-nicho="pet"
+             data-preco="37.57" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_995300-MLB112581813094_062026-E.webp" alt="4 Brinquedo Pet Corda Resistente Interativo Cachorro Forte" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>4 Brinquedo Pet Corda Resistente Interativo Cachorro Forte</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 37,57</span>
+                 <a href="https://meli.la/2fHsfqG" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="caneca copo térmico cerveja gelada café 360 ml inox c/ tampa cor preto    [] sustentavel sustentavel ml ml:mlb4185265377" data-nicho="sustentavel"
+             data-preco="24.61" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_799174-MLA94926928734_102025-E.webp" alt="Caneca Copo Térmico Cerveja Gelada Café 360 Ml Inox C/ Tampa Cor Preto" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Caneca Copo Térmico Cerveja Gelada Café 360 Ml Inox C/ Tampa Cor Preto</h3>
+        
+        
+        <div class="uso">📍 Onde usar: sustentavel</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 24,61</span>
+                 <a href="https://meli.la/2f39ggA" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="copo térmico com tampa cuia personalizado gravação a laser    [] sustentavel sustentavel ml ml:mlb5466971212" data-nicho="sustentavel"
+             data-preco="31.90" data-desc="0" data-score="10150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_760143-MLB89685823688_082025-E-copo-termico-com-tampa-cuia-personalizado-gravaco-a-laser.webp" alt="Copo Térmico Com Tampa Cuia Personalizado Gravação A Laser" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Copo Térmico Com Tampa Cuia Personalizado Gravação A Laser</h3>
+        
+        
+        <div class="uso">📍 Onde usar: sustentavel</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 31,90</span>
+                 <a href="https://meli.la/2T9GQQx" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="escova cadence secadora alisadora volumizadora esc710-biv cinza    []  outros ml ml:mlb3556634327" data-nicho="outros"
+             data-preco="99.00" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_740506-MLA99588742918_122025-E.webp" alt="Escova Cadence Secadora Alisadora Volumizadora Esc710-biv Cinza" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Escova Cadence Secadora Alisadora Volumizadora Esc710-biv Cinza</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 99,00</span>
+                 <a href="https://meli.la/1tWKEMk" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="boneco pelúcia chase patrulha canina 1328 sunny brinquedos    []  outros ml ml:mlb4299702144" data-nicho="outros"
+             data-preco="97.08" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_873057-MLA100043981585_122025-E.webp" alt="Boneco Pelúcia Chase Patrulha Canina 1328 Sunny Brinquedos" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Boneco Pelúcia Chase Patrulha Canina 1328 Sunny Brinquedos</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 97,08</span>
+                 <a href="https://meli.la/29HeHwt" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="coleira scalibor m 48 cm pulgas carrapatos leishmaniose    [] seu pet pet ml ml:mlb6251194556" data-nicho="pet"
+             data-preco="65.38" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_842810-MLA99450754658_112025-E.webp" alt="Coleira Scalibor M 48 Cm Pulgas Carrapatos Leishmaniose" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Coleira Scalibor M 48 Cm Pulgas Carrapatos Leishmaniose</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 65,38</span>
+                 <a href="https://meli.la/1T3Aj78" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="caminhão dinossauro pista com carrinhos maleta transporte cor azul    [] seu pet pet ml ml:mlb4111453547" data-nicho="pet"
+             data-preco="89.91" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_983572-MLA99489106572_112025-E.webp" alt="Caminhão Dinossauro Pista Com Carrinhos Maleta Transporte Cor Azul" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Caminhão Dinossauro Pista Com Carrinhos Maleta Transporte Cor Azul</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 89,91</span>
+                 <a href="https://meli.la/1De9KT6" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="coleira aparelho anti latido eletrônica de adestramento sem choque recarregável preto bode    [] seu pet pet ml ml:mlb3640812901" data-nicho="pet"
+             data-preco="78.99" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_850666-MLA110173011371_042026-E.webp" alt="Coleira Aparelho Anti Latido Eletrônica De Adestramento Sem Choque Recarregável Preto Bode" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Coleira Aparelho Anti Latido Eletrônica De Adestramento Sem Choque Recarregável Preto Bode</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 78,99</span>
+                 <a href="https://meli.la/19cDKrN" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="copo térmico de cerveja aço inox 473 ml preto com tampa lurabel    [] sustentavel sustentavel ml ml:mlb4404895839" data-nicho="sustentavel"
+             data-preco="19.90" data-desc="0" data-score="10140.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_884782-MLA116712028260_092026-E.webp" alt="Copo Térmico De Cerveja Aço Inox 473 mL Preto Com Tampa Lurabel" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Copo Térmico De Cerveja Aço Inox 473 mL Preto Com Tampa Lurabel</h3>
+        
+        
+        <div class="uso">📍 Onde usar: sustentavel</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 19,90</span>
+                 <a href="https://meli.la/2jGcGSe" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="1 barbante barroco fio 4 circulo 200g 338m croche artesanato    []  outros ml ml:mlb7207073796" data-nicho="outros"
+             data-preco="36.00" data-desc="0" data-score="10130.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_747932-MLB113588297342_072026-E.webp" alt="1 Barbante Barroco Fio 4 Circulo 200g 338m Croche Artesanato" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>1 Barbante Barroco Fio 4 Circulo 200g 338m Croche Artesanato</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 36,00</span>
+                 <a href="https://meli.la/1t4yAep" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="escova secadora cadence uau 4 em 1 esc800    []  outros ml ml:mlb6666657682" data-nicho="outros"
+             data-preco="99.00" data-desc="0" data-score="10120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_802701-MLA114592682461_072026-E.webp" alt="Escova Secadora Cadence Uau 4 em 1 ESC800" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Escova Secadora Cadence Uau 4 em 1 ESC800</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 99,00</span>
+                 <a href="https://meli.la/2ZDeXDL" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="1 barbante barroco fio 6 maxcolor 200g -escolha sua cor    []  outros ml ml:mlb7318393086" data-nicho="outros"
+             data-preco="36.30" data-desc="0" data-score="10120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_799059-MLB114858712823_072026-E--1-barbante-barroco-fio-6-maxcolor-200g-escolha-sua-cor.webp" alt="1 Barbante Barroco Fio 6 Maxcolor 200g -escolha Sua Cor" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>1 Barbante Barroco Fio 6 Maxcolor 200g -escolha Sua Cor</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 36,30</span>
+                 <a href="https://meli.la/17KHjsc" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit bolsa maternidade menina e menino enxoval    [] crianças e bebês infantil ml ml:mlb2848564602" data-nicho="infantil"
+             data-preco="57.90" data-desc="0" data-score="10120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_950238-MLB76539086423_052024-E-kit-bolsa-maternidade-menina-e-menino-enxoval.webp" alt="Kit Bolsa Maternidade Menina E Menino Enxoval" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit Bolsa Maternidade Menina E Menino Enxoval</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 57,90</span>
+                 <a href="https://meli.la/2Ue8BSR" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="coleira adestramento recarregável anti latido    [] seu pet pet ml ml:mlb1893605338" data-nicho="pet"
+             data-preco="60.34" data-desc="0" data-score="10120.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_856882-MLB90753358233_082025-E-coleira-adestramento-recarregavel-anti-latido.webp" alt="Coleira Adestramento Recarregável Anti Latido" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Coleira Adestramento Recarregável Anti Latido</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 60,34</span>
+                 <a href="https://meli.la/1F2oLFx" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="caminha redonda pet sherpa cama para cães gatos macia quente    [] seu pet pet ml ml:mlb4012783667" data-nicho="pet"
+             data-preco="34.79" data-desc="0" data-score="10110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_981904-MLB119220365617_102026-E-caminha-redonda-pet-sherpa-cama-para-ces-gatos-macia-quente.webp" alt="Caminha Redonda Pet Sherpa Cama Para Cães Gatos Macia Quente" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Caminha Redonda Pet Sherpa Cama Para Cães Gatos Macia Quente</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 34,79</span>
+                 <a href="https://meli.la/184Dn7m" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="6 saquinhos organizador mala maternidade bebe com tag trocas    [] crianças e bebês infantil ml ml:mlb3894426784" data-nicho="infantil"
+             data-preco="34.88" data-desc="0" data-score="10110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_938424-MLB91044406261_082025-E-6-saquinhos-organizador-mala-maternidade-bebe-com-tag-trocas.webp" alt="6 Saquinhos Organizador Mala Maternidade Bebe Com Tag Trocas" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>6 Saquinhos Organizador Mala Maternidade Bebe Com Tag Trocas</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 34,88</span>
+                 <a href="https://meli.la/342XUcV" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="luminária projetor estrela 360º galaxy abajur mesa infantil    [] crianças e bebês infantil ml ml:mlb3396621657" data-nicho="infantil"
+             data-preco="29.92" data-desc="0" data-score="10110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_604301-MLB116372750792_092026-E-luminaria-projetor-estrela-360-galaxy-abajur-mesa-infantil.webp" alt="Luminária Projetor Estrela 360º Galaxy Abajur Mesa Infantil" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Luminária Projetor Estrela 360º Galaxy Abajur Mesa Infantil</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 29,92</span>
+                 <a href="https://meli.la/2KKpCix" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit c/ 12 flor natalina decoração árvore natal luxo enfeite    [] crianças e bebês infantil ml ml:mlb5035463384" data-nicho="infantil"
+             data-preco="31.74" data-desc="0" data-score="10110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_832867-MLB116732519129_082026-E-kit-c-12-flor-natalina-decoraco-arvore-natal-luxo-enfeite.webp" alt="Kit C/ 12 Flor Natalina Decoração Árvore Natal Luxo Enfeite" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit C/ 12 Flor Natalina Decoração Árvore Natal Luxo Enfeite</h3>
+        
+        
+        <div class="uso">📍 Onde usar: crianças e bebês</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 31,74</span>
+                 <a href="https://meli.la/1Poji4E" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="coleira antipulga carrapato leishmaniose cão antiparasitário    [] seu pet pet ml ml:mlb6304177434" data-nicho="pet"
+             data-preco="29.90" data-desc="0" data-score="10110.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_767652-MLB116031394527_082026-E-coleira-antipulga-carrapato-leishmaniose-co-antiparasitario.webp" alt="Coleira Antipulga Carrapato Leishmaniose Cão Antiparasitário" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Coleira Antipulga Carrapato Leishmaniose Cão Antiparasitário</h3>
+        
+        
+        <div class="uso">📍 Onde usar: seu pet</div>
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 29,90</span>
+                 <a href="https://meli.la/1LWDRfs" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="escova philco soft brush 1200w cor preto    []  outros ml ml:mlb4379926526" data-nicho="outros"
+             data-preco="96.22" data-desc="23" data-score="10030.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_612037-MLA96134249037_102025-E.webp" alt="Escova Philco Soft Brush 1200w Cor Preto" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-23%</span></div>
+      <div class="info">
+        <h3>Escova Philco Soft Brush 1200w Cor Preto</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 96,22</span>
+                 <a href="https://meli.la/2BYqahN" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="bolsa organizadora roupas dobrável 50 l    []  outros ml ml:mlb4848683991" data-nicho="outros"
+             data-preco="12.78" data-desc="0" data-score="9872.2">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_924450-CBT112936165902_072026-E--bolsa-organizadora-roupas-dobravel-50-l.webp" alt="Bolsa Organizadora Roupas Dobrável 50 L" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Bolsa Organizadora Roupas Dobrável 50 L</h3>
+        
+        
+        
+        <div class="meta"></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 12,78</span>
+                 <a href="https://meli.la/2qdhY9f" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="caixa de armazenamento de roupas dobrável com tampa para arm m    []  outros ml ml:mlb2022356183" data-nicho="outros"
+             data-preco="16.78" data-desc="0" data-score="9832.2">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_934021-CBT114176512190_082026-E.webp" alt="Caixa De Armazenamento De Roupas Dobrável Com Tampa Para Arm M" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Caixa De Armazenamento De Roupas Dobrável Com Tampa Para Arm M</h3>
+        
+        
+        
+        <div class="meta"></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 16,78</span>
+                 <a href="https://meli.la/2G3MTLq" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="alça corda cordão p/ celular universal anti perda segurança    []  outros ml ml:mlb6012322288" data-nicho="outros"
+             data-preco="17.90" data-desc="0" data-score="9821.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_823658-MLB111400183586_052026-E-alca-corda-cordo-p-celular-universal-anti-perda-seguranca.webp" alt="Alça Corda Cordão P/ Celular Universal Anti Perda Segurança" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Alça Corda Cordão P/ Celular Universal Anti Perda Segurança</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">5000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 17,90</span>
+                 <a href="https://meli.la/1z2EQD2" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="jogo 3 peneiras p m g em casa tem aço inox luxo utensílios de cozinha    []  outros ml ml:mlb4406486605" data-nicho="outros"
+             data-preco="19.00" data-desc="0" data-score="9810.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_898813-MLA99592473832_122025-E.webp" alt="Jogo 3 Peneiras P M G Em Casa Tem Aço Inox Luxo Utensílios De Cozinha" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Jogo 3 Peneiras P M G Em Casa Tem Aço Inox Luxo Utensílios De Cozinha</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 19,00</span>
+                 <a href="https://meli.la/1KPxLTy" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="timer digital de cozinha ovo cozinha retro com ímã lcd    []  outros ml ml:mlb6577147682" data-nicho="outros"
+             data-preco="19.39" data-desc="0" data-score="9806.1">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_945506-MLB109239216974_042026-E.webp" alt="Timer Digital De Cozinha Ovo Cozinha Retro Com Ímã Lcd" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Timer Digital De Cozinha Ovo Cozinha Retro Com Ímã Lcd</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">5000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 19,39</span>
+                 <a href="https://meli.la/2xikts5" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 2 suportes celular tablet de mesa ajustável dobrável    []  outros ml ml:mlb4519214527" data-nicho="outros"
+             data-preco="20.99" data-desc="0" data-score="9790.1">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_782524-MLB111971460798_062026-E--kit-2-suportes-celular-tablet-de-mesa-ajustavel-dobravel.webp" alt="Kit 2 Suportes Celular Tablet De Mesa Ajustável Dobrável" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 2 Suportes Celular Tablet De Mesa Ajustável Dobrável</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 20,99</span>
+                 <a href="https://meli.la/21ydQE9" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 3 barbante barroco maxcolor círculo nº6 200g 226m cor 5718 verde militar - crochê moda    []  outros ml ml:mlb4150813937" data-nicho="outros"
+             data-preco="76.91" data-desc="0" data-score="1150.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_779064-MLA99504067786_112025-E.webp" alt="Kit 3 Barbante Barroco Maxcolor Círculo Nº6 200g 226m Cor 5718 Verde Militar - Crochê Moda" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Kit 3 Barbante Barroco Maxcolor Círculo Nº6 200g 226m Cor 5718 Verde Militar - Crochê Moda</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">1000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 76,91</span>
+                 <a href="https://meli.la/1HYHtRR" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="espelho rocco corpo inteiro organico 90x40 pinterest grande orgânico - suporte    []  outros ml ml:mlb6534712502" data-nicho="outros"
+             data-preco="78.99" data-desc="39" data-score="1140.0">
+      <div class="foto"><img src="" alt="Espelho Rocco Corpo Inteiro Organico 90x40 Pinterest Grande Orgânico - Suporte" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-39%</span></div>
+      <div class="info">
+        <h3>Espelho Rocco Corpo Inteiro Organico 90x40 Pinterest Grande Orgânico - Suporte</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 78,99</span>
+                 <a href="https://meli.la/1T5RB2F" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 4 blusas regata feminina suplex tshirt básica casual preto + branco + marrom + nude li    []  outros ml ml:mlb4949435695" data-nicho="outros"
+             data-preco="51.98" data-desc="57" data-score="637.0">
+      <div class="foto"><img src="" alt="Kit 4 Blusas Regata Feminina Suplex Tshirt Básica Casual Preto + Branco + Marrom + Nude Li" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-57%</span></div>
+      <div class="info">
+        <h3>Kit 4 Blusas Regata Feminina Suplex Tshirt Básica Casual Preto + Branco + Marrom + Nude Li</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">5000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 51,98</span>
+                 <a href="https://meli.la/17BE4VK" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 2 pares tênis infantil bordado confortável calce facil azul/laranja preto/verde liso 2    []  outros ml ml:mlb6629832656" data-nicho="outros"
+             data-preco="59.90" data-desc="50" data-score="589.0">
+      <div class="foto"><img src="" alt="Kit 2 Pares Tênis Infantil Bordado Confortável Calce Facil Azul/laranja Preto/verde Liso 2" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-50%</span></div>
+      <div class="info">
+        <h3>Kit 2 Pares Tênis Infantil Bordado Confortável Calce Facil Azul/laranja Preto/verde Liso 2</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">1000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 59,90</span>
+                 <a href="https://meli.la/1Kf1jnJ" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="aparelho de jantar 30 peças - pratos + copos + talheres inox    []  outros ml ml:mlb4069161929" data-nicho="outros"
+             data-preco="78.90" data-desc="51" data-score="571.0">
+      <div class="foto"><img src="" alt="Aparelho De Jantar 30 Peças - Pratos + Copos + Talheres Inox" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-51%</span></div>
+      <div class="info">
+        <h3>Aparelho De Jantar 30 Peças - Pratos + Copos + Talheres Inox</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">10000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 78,90</span>
+                 <a href="https://meli.la/1qRd5Ly" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="kit 4 peças 2 conjuntos roupa infantil menino verão sortido multicolorido 6    []  outros ml ml:mlb6501050770" data-nicho="outros"
+             data-preco="53.12" data-desc="24" data-score="506.0">
+      <div class="foto"><img src="" alt="Kit 4 Peças 2 Conjuntos Roupa Infantil Menino Verão Sortido Multicolorido 6" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-24%</span></div>
+      <div class="info">
+        <h3>Kit 4 Peças 2 Conjuntos Roupa Infantil Menino Verão Sortido Multicolorido 6</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">5000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 53,12</span>
+                 <a href="https://meli.la/31D6jmS" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="máscara acidificante amend equilíbrio ph antifrizz 250g    []  outros ml ml:mlb4379394611" data-nicho="outros"
+             data-preco="64.90" data-desc="28" data-score="475.0">
+      <div class="foto"><img src="" alt="Máscara Acidificante Amend Equilíbrio Ph Antifrizz 250g" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-28%</span></div>
+      <div class="info">
+        <h3>Máscara Acidificante Amend Equilíbrio Ph Antifrizz 250g</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">1000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 64,90</span>
+                 <a href="https://meli.la/1WSMjCG" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="sandália infantil menina kimimo confortável moda verão bronze strass 29    []  outros ml ml:mlb5178253565" data-nicho="outros"
+             data-preco="39.90" data-desc="50" data-score="450.0">
+      <div class="foto"><img src="" alt="Sandália Infantil Menina Kimimo Confortável Moda Verão Bronze Strass 29" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"><span class="off">-50%</span></div>
+      <div class="info">
+        <h3>Sandália Infantil Menina Kimimo Confortável Moda Verão Bronze Strass 29</h3>
+        
+        
+        
+        <div class="meta"><span class="vend">1000+ vendidos</span></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 39,90</span>
+                 <a href="https://meli.la/2w6MqQy" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article>
+    <article class="card" data-busca="furadeira de impacto ironhoof 21v sem escovas com 2 baterias e acessórios    []  outros ml ml:mlb5307075081" data-nicho="outros"
+             data-preco="217.21" data-desc="0" data-score="175.0">
+      <div class="foto"><img src="https://http2.mlstatic.com/D_Q_NP_2X_943918-MLA118161782913_092026-E.webp" alt="Furadeira de Impacto Ironhoof 21V Sem Escovas com 2 Baterias e Acessórios" loading="lazy"
+           onerror="this.closest('.card').style.display='none'"></div>
+      <div class="info">
+        <h3>Furadeira de Impacto Ironhoof 21V Sem Escovas com 2 Baterias e Acessórios</h3>
+        
+        
+        
+        <div class="meta"></div>
+        <div class="precos"><div class="linha">
+                 <span class="loja nome-ml">ML</span>
+                 <span class="v">R$ 217,21</span>
+                 <a href="https://meli.la/2diUtvR" target="_blank" rel="sponsored noopener"
+                    style="background:#3483fa">VER</a>
+               </div></div>
+      </div>
+    </article></div>
+<p class="vazio" id="vazio">Nada encontrado 😕 — tenta outro termo.</p></main>
+<footer>Links de afiliado — comparamos os dois marketplaces e mostramos o menor preço. Comprando por eles você apoia o projeto. 💚</footer>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const vazio=document.getElementById('vazio');
+let nicho='';
+function filtrar(){
+  const q=document.getElementById('busca').value.toLowerCase().trim();
+  let vis=0;
+  for(const c of cards){
+    const ok=(!nicho||c.dataset.nicho===nicho)&&(!q||c.dataset.busca.includes(q));
+    c.style.display=ok?'':'none'; if(ok)vis++;
+  }
+  vazio.style.display=vis?'none':'block';
+}
+document.getElementById('busca').addEventListener('input',filtrar);
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('ativo'));
+  b.classList.add('ativo'); nicho=b.dataset.nicho; filtrar();
+}));
+// ordenação: destaques (ordem do servidor) / menor preço / maior desconto
+const grid=document.getElementById('grid');
+const ordemOrig=cards.map(c=>c);
+document.querySelectorAll('.ordem button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.ordem button').forEach(x=>x.classList.remove('ativo'));
+  b.classList.add('ativo');
+  const m=b.dataset.ord;
+  const arr=[...cards];
+  if(m==='barato') arr.sort((a,c)=>parseFloat(a.dataset.preco)-parseFloat(c.dataset.preco));
+  else if(m==='desc') arr.sort((a,c)=>parseFloat(c.dataset.desc)-parseFloat(a.dataset.desc));
+  else arr.sort((a,c)=>ordemOrig.indexOf(a)-ordemOrig.indexOf(c));
+  arr.forEach(c=>grid.appendChild(c));
+}));
+</script>
+</body></html>
