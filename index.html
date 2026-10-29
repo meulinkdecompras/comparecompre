@@ -182,7 +182,7 @@ function cardHtml(p){
   const nomeC=fonte==='Shopee'?'nome-shopee':'nome-ml';
   const nFotos=gal&&gal.length>1?'<span class="fotos-n">📷 '+gal.length+'</span>':'';
   return '<article class="card" data-n="'+n+'" onclick="openDet('+idx+',event)" style="cursor:pointer">'
-    +'<div class="foto" onclick="openGal('+idx+',event)"><img src="'+img+'" loading="lazy" alt=""'
+    +'<div class="foto"><img src="'+img+'" loading="lazy" alt=""'
     +' onerror="this.closest(\'.card\').style.display=\'none\'">'+badge+nFotos+'</div>'
     +'<div class="info"><h3>'+t+'</h3>'
     +'<div class="meta">'+vendTxt+'</div>'
