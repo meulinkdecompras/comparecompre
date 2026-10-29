@@ -276,6 +276,8 @@ document.getElementById('busca').addEventListener('input',e=>{q=e.target.value;c
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.chip').forEach(x=>x.classList.remove('ativo'));
   b.classList.add('ativo');nicho=b.dataset.n;closeDet();renderiza();
+  document.querySelector('.chips').classList.remove('abre');
+  document.getElementById('btnCat').classList.remove('aberto');
 }));
 document.querySelectorAll('.ordem button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.ordem button').forEach(x=>x.classList.remove('ativo'));
