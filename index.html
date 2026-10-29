@@ -35,8 +35,8 @@
   #busca{width:100%;padding:13px 16px;border-radius:12px;border:1px solid #26333f;background:#18222b;color:#fff;font-size:15px;outline:none}
   .chips{display:none;gap:7px;flex-wrap:wrap;padding:9px 2px 2px}
   .chips.abre{display:flex}
-  #btnCat{flex:0 0 auto;padding:7px 14px;border-radius:999px;border:1px solid #33424f;
-          background:#18222b;color:#cbd5dd;font-size:12px;cursor:pointer;margin-top:8px}
+  #btnCat{flex:0 0 auto;padding:5px 12px;border-radius:999px;border:1px solid #33424f;
+          background:#18222b;color:#cbd5dd;font-size:11px;cursor:pointer}
   #btnCat.aberto{background:#14b8a6;border-color:#14b8a6;color:#041;font-weight:700}
   .chip{flex:0 0 auto;padding:6px 13px;border-radius:999px;border:1px solid #33424f;background:#18222b;color:#cbd5dd;font-size:12px;cursor:pointer}
   .chip.ativo{background:#14b8a6;border-color:#14b8a6;color:#041;font-weight:700}
@@ -115,13 +115,13 @@
 </div>
 <div class="busca-wrap">
   <input id="busca" placeholder="🔍 Busque por produto, marca, modelo, código, uso, nicho…" autocomplete="off">
-  <button id="btnCat">☰ Categorias</button>
   <div class="chips"><button class="chip ativo" data-n="">Todos</button><button class="chip" data-n="alimentos">Alimentos</button><button class="chip" data-n="audio">Audio</button><button class="chip" data-n="automotivo">Automotivo</button><button class="chip" data-n="banheiro e cozinha">Banheiro E Cozinha</button><button class="chip" data-n="bebe">Bebe</button><button class="chip" data-n="beleza">Beleza</button><button class="chip" data-n="cameras">Cameras</button><button class="chip" data-n="casa">Casa</button><button class="chip" data-n="computadores">Computadores</button><button class="chip" data-n="eletrodomesticos">Eletrodomesticos</button><button class="chip" data-n="eletronicos">Eletronicos</button><button class="chip" data-n="esporte">Esporte</button><button class="chip" data-n="games">Games</button><button class="chip" data-n="hobbies">Hobbies</button><button class="chip" data-n="infantil">Infantil</button><button class="chip" data-n="livros">Livros</button><button class="chip" data-n="moda">Moda</button><button class="chip" data-n="moda feminina">Moda Feminina</button><button class="chip" data-n="moda masculina">Moda Masculina</button><button class="chip" data-n="outros">Outros</button><button class="chip" data-n="papelaria">Papelaria</button><button class="chip" data-n="pecas">Pecas</button><button class="chip" data-n="pet">Pet</button><button class="chip" data-n="saude">Saude</button><button class="chip" data-n="sustentavel">Sustentavel</button><button class="chip" data-n="viagem">Viagem</button></div>
   <div class="ordem">Ordenar:
     <button data-ord="dest" class="ativo">✨ Destaques</button>
     <button data-ord="vend">🏆 Mais vendidos</button>
     <button data-ord="barato">💰 Menor preço</button>
     <button data-ord="desc">🔥 Maior desconto</button>
+    <button id="btnCat" style="margin-left:auto">☰ Categorias</button>
   </div>
 </div>
 <main>
