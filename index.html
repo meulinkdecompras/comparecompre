@@ -60,10 +60,7 @@
     .linha a{flex:1 1 100%;text-align:center;padding:7px 6px}
   }
   .vazio{text-align:center;color:#8b98a5;padding:40px 10px;display:none}
-  .melhor-btn{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
-         z-index:99;background:linear-gradient(90deg,#16a34a,#0d9488);color:#fff;
-         text-decoration:none;font-weight:900;font-size:15px;padding:14px 24px;
-         border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.5);white-space:nowrap}
+  .vazio-sub{display:inline-block;margin-top:10px;font-size:13px;color:#a7b3be}
   .vazio-sub{display:inline-block;margin-top:10px;font-size:13px;color:#a7b3be}
   .pedir-mini{display:inline-block;margin-top:12px;color:#14b8a6;font-size:12px;text-decoration:underline}
   footer{text-align:center;color:#5b6770;font-size:12px;padding:24px 14px}
@@ -82,7 +79,6 @@
     <button data-ord="desc">🔥 Maior desconto</button>
   </div>
 </div>
-<a id="melhorBtn" class="melhor-btn" target="_blank" href="#" style="display:none"></a>
 <main><div class="grid" id="grid">
     <article class="card" data-busca="fone ouvido bluetooth 5.4 sem fio portatil estojo de carregamento anti ruido resistente a     [] dia a dia / trabalho eletronicos ml ml:mlb5758097762" data-nicho="eletronicos"
              data-preco="47.34" data-desc="0" data-score="50120.0">
@@ -1058,18 +1054,6 @@ function filtrar(){
     // anota a busca na fila — o bot coleta esse produto na próxima rodada
     if(q.length>2){try{fetch('https://webhook.site/3570f094-ffd0-4bcb-af2b-ed92316517ae',
       {method:'POST',mode:'no-cors',body:q});}catch(e){}}}
-  // funil direto: acha o card visível mais barato e oferece a compra na hora
-  const btn=document.getElementById('melhorBtn');
-  let melhor=null,menor=1e18;
-  for(const c of cards){
-    if(c.style.display==='none')continue;
-    const p=parseFloat(c.dataset.preco)||1e18;
-    if(p<menor){menor=p;melhor=c;}
-  }
-  const url=melhor&&melhor.querySelector('.linha a');
-  if(url){btn.href=url.href;btn.textContent='💰 O mais barato: R$ '+
-    menor.toFixed(2).replace('.',',')+' — VER AGORA';btn.style.display='';}
-  else btn.style.display='none';
 }
 document.getElementById('busca').addEventListener('input',filtrar);
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
