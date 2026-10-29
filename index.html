@@ -39,7 +39,8 @@
   main{max-width:1200px;margin:0 auto;padding:12px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}
   @media (max-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
-  .card{background:#18222b;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .card{background:#18222b;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;
+        content-visibility:auto;contain-intrinsic-size:auto 340px}
   .foto{position:relative;aspect-ratio:16/10;background:#fff}
   .foto img{width:100%;height:100%;object-fit:contain}
   .off{position:absolute;top:6px;left:6px;background:#e0202b;color:#fff;font-weight:800;font-size:11px;padding:2px 8px;border-radius:999px}
