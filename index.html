@@ -102,7 +102,7 @@
   <input id="busca" placeholder="🔍 Busque por produto, marca, modelo, código, uso, nicho…" autocomplete="off">
   <div class="chips"><button class="chip ativo" data-n="">Todos</button><button class="chip" data-n="automotivo">Automotivo</button><button class="chip" data-n="banheiro e cozinha">Banheiro E Cozinha</button><button class="chip" data-n="beleza">Beleza</button><button class="chip" data-n="casa">Casa</button><button class="chip" data-n="computadores">Computadores</button><button class="chip" data-n="eletronicos">Eletronicos</button><button class="chip" data-n="esporte">Esporte</button><button class="chip" data-n="infantil">Infantil</button><button class="chip" data-n="moda">Moda</button><button class="chip" data-n="outros">Outros</button><button class="chip" data-n="pet">Pet</button><button class="chip" data-n="saude">Saude</button><button class="chip" data-n="sustentavel">Sustentavel</button></div>
   <div class="ordem">Ordenar:
-    <button data-ord="rel" class="ativo">Destaques</button>
+    <button data-ord="vend" class="ativo">🏆 Mais vendidos</button>
     <button data-ord="barato">💰 Menor preço</button>
     <button data-ord="desc">🔥 Maior desconto</button>
   </div>
@@ -136,7 +136,7 @@
 <footer>Links de afiliado — comparamos os dois marketplaces e mostramos o menor preço.
 Comprando por eles você apoia o projeto. 💚 · 24157 ofertas</footer>
 <script>
-let P=[], NICHOS=[], q='', nicho='', ord='rel', visN=60;
+let P=[], NICHOS=[], q='', nicho='', ord='vend', visN=60;
 const grid=document.getElementById('grid'), vazio=document.getElementById('vazio'),
       carregando=document.getElementById('carregando');
 const precoFmt=v=>'R$ '+v.toFixed(2).replace('.',',');
@@ -200,6 +200,7 @@ function filtra(){
   if(ql.length) arr=arr.filter(p=>ql.every(t=>p[9].includes(t)));
   if(ord==='barato') arr=arr.slice().sort((a,b)=>a[5]-b[5]);
   else if(ord==='desc') arr=arr.slice().sort((a,b)=>b[8]-a[8]);
+  else if(ord==='vend') arr=arr.slice().sort((a,b)=>b[7]-a[7]);
   return arr;
 }
 let arrAtual=[], pos=0;
