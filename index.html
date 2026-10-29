@@ -60,6 +60,9 @@
     .linha a{flex:1 1 100%;text-align:center;padding:7px 6px}
   }
   .vazio{text-align:center;color:#8b98a5;padding:40px 10px;display:none}
+  .pedir{display:inline-block;margin-top:14px;background:#16a34a;color:#fff;
+         text-decoration:none;font-weight:800;font-size:14px;padding:12px 20px;
+         border-radius:999px}
   footer{text-align:center;color:#5b6770;font-size:12px;padding:24px 14px}
 </style></head>
 <body>
@@ -1029,7 +1032,8 @@
                </div></div>
       </div>
     </article></div>
-<p class="vazio" id="vazio">Nada encontrado 😕 — tenta outro termo.</p></main>
+<p class="vazio" id="vazio">Nada encontrado 😕<br>
+<a id="pedir" class="pedir" target="_blank" href="#">🔎 Pedir esse produto no Telegram — a gente acha o mais barato</a></p></main>
 <footer>Links de afiliado — comparamos os dois marketplaces e mostramos o menor preço. Comprando por eles você apoia o projeto. 💚</footer>
 <script>
 const cards=[...document.querySelectorAll('.card')];
@@ -1043,6 +1047,9 @@ function filtrar(){
     c.style.display=ok?'':'none'; if(ok)vis++;
   }
   vazio.style.display=vis?'none':'block';
+  if(!vis){document.getElementById('pedir').href=
+    'https://t.me/actionbot_ofertas_bot?start=busca_'+
+    encodeURIComponent(q.replace(/\s+/g,'_')||'oferta');}
 }
 document.getElementById('busca').addEventListener('input',filtrar);
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
