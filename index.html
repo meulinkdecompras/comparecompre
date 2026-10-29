@@ -181,7 +181,7 @@ document.addEventListener('keydown',e=>{if(document.getElementById('lb').style.d
   if(e.key==='ArrowRight')navGal(1);else if(e.key==='ArrowLeft')navGal(-1);
   else if(e.key==='Escape')closeGal();}});
 function cardHtml(p){
-  const [t,img,n,fonte,laf,preco,po,vend,desc,busca,gal,idx]=p;
+  const [t,img,n,fonte,laf,preco,po,vend,desc,busca,gal,caract,idx]=p;
   const badge=desc>0?'<span class="off">-'+desc+'%</span>':'';
   const vendTxt=vend>50?vend+'+ vendidos':'';
   const nomeC=fonte==='Shopee'?'nome-shopee':'nome-ml';
