@@ -251,7 +251,11 @@ document.querySelectorAll('.ordem button').forEach(b=>b.addEventListener('click'
   document.querySelectorAll('.ordem button').forEach(x=>x.classList.remove('ativo'));
   b.classList.add('ativo');ord=b.dataset.ord;closeDet();renderiza();
 }));
-fetch('produtos.json').then(r=>r.json()).then(d=>{
+fetch('produtos.json.gz')
+.then(r=>r.arrayBuffer())
+.then(b=>new Response(new Blob([b]).stream()
+  .pipeThrough(new DecompressionStream('gzip'))).text())
+.then(txt=>{const d=JSON.parse(txt);
   P=d.p; P.forEach((p,i)=>p.push(i));  // índice estável p/ a galeria
   carregando.textContent=''; renderiza();
 }).catch(()=>{carregando.textContent='erro carregando ofertas';});
