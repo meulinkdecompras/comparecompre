@@ -242,14 +242,14 @@ window.addEventListener('scroll',()=>{
   if(pos<arrAtual.length && window.innerHeight+window.scrollY>document.body.offsetHeight-800)
     renderizaMais();
 });
-document.getElementById('busca').addEventListener('input',e=>{q=e.target.value;renderiza();});
+document.getElementById('busca').addEventListener('input',e=>{q=e.target.value;closeDet();renderiza();});
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.chip').forEach(x=>x.classList.remove('ativo'));
-  b.classList.add('ativo');nicho=b.dataset.n;renderiza();
+  b.classList.add('ativo');nicho=b.dataset.n;closeDet();renderiza();
 }));
 document.querySelectorAll('.ordem button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.ordem button').forEach(x=>x.classList.remove('ativo'));
-  b.classList.add('ativo');ord=b.dataset.ord;renderiza();
+  b.classList.add('ativo');ord=b.dataset.ord;closeDet();renderiza();
 }));
 fetch('produtos.json').then(r=>r.json()).then(d=>{
   P=d.p; P.forEach((p,i)=>p.push(i));  // índice estável p/ a galeria
