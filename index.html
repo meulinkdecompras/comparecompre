@@ -76,6 +76,8 @@
   footer{text-align:center;color:#5b6770;font-size:11px;padding:20px 10px 30px;line-height:1.6}
   .fotos-n{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;
            font-size:10px;padding:2px 8px;border-radius:999px;z-index:3}
+  .fav{position:absolute;bottom:6px;left:6px;font-size:18px;cursor:pointer;z-index:4;
+       text-shadow:0 1px 4px rgba(0,0,0,.6);user-select:none}
   .wa{position:absolute;top:6px;right:6px;background:#25d366;width:30px;height:30px;
       border-radius:50%;display:flex;align-items:center;justify-content:center;
       text-decoration:none;z-index:4;box-shadow:0 2px 6px rgba(0,0,0,.3)}
@@ -124,7 +126,7 @@
     <label for="foto" id="btnFoto" title="Buscar por foto">📷</label>
     <input id="foto" type="file" accept="image/*" capture="environment" style="display:none">
   </div>
-  <div class="chips"><button class="chip ativo" data-n="">Todos</button><button class="chip" data-n="alimentos">Alimentos</button><button class="chip" data-n="audio">Audio</button><button class="chip" data-n="automotivo">Automotivo</button><button class="chip" data-n="banheiro e cozinha">Banheiro E Cozinha</button><button class="chip" data-n="bebe">Bebe</button><button class="chip" data-n="beleza">Beleza</button><button class="chip" data-n="cameras">Cameras</button><button class="chip" data-n="casa">Casa</button><button class="chip" data-n="computadores">Computadores</button><button class="chip" data-n="eletrodomesticos">Eletrodomesticos</button><button class="chip" data-n="eletronicos">Eletronicos</button><button class="chip" data-n="esporte">Esporte</button><button class="chip" data-n="games">Games</button><button class="chip" data-n="hobbies">Hobbies</button><button class="chip" data-n="infantil">Infantil</button><button class="chip" data-n="livros">Livros</button><button class="chip" data-n="moda">Moda</button><button class="chip" data-n="moda feminina">Moda Feminina</button><button class="chip" data-n="moda masculina">Moda Masculina</button><button class="chip" data-n="outros">Outros</button><button class="chip" data-n="papelaria">Papelaria</button><button class="chip" data-n="pecas">Pecas</button><button class="chip" data-n="pet">Pet</button><button class="chip" data-n="saude">Saude</button><button class="chip" data-n="sustentavel">Sustentavel</button><button class="chip" data-n="viagem">Viagem</button></div>
+  <div class="chips"><button class="chip ativo" data-n="">Todos</button><button class="chip" data-n="__fav">❤ Favoritos</button><button class="chip" data-n="alimentos">Alimentos</button><button class="chip" data-n="audio">Audio</button><button class="chip" data-n="automotivo">Automotivo</button><button class="chip" data-n="banheiro e cozinha">Banheiro E Cozinha</button><button class="chip" data-n="bebe">Bebe</button><button class="chip" data-n="beleza">Beleza</button><button class="chip" data-n="cameras">Cameras</button><button class="chip" data-n="casa">Casa</button><button class="chip" data-n="computadores">Computadores</button><button class="chip" data-n="eletrodomesticos">Eletrodomesticos</button><button class="chip" data-n="eletronicos">Eletronicos</button><button class="chip" data-n="esporte">Esporte</button><button class="chip" data-n="games">Games</button><button class="chip" data-n="hobbies">Hobbies</button><button class="chip" data-n="infantil">Infantil</button><button class="chip" data-n="livros">Livros</button><button class="chip" data-n="moda">Moda</button><button class="chip" data-n="moda feminina">Moda Feminina</button><button class="chip" data-n="moda masculina">Moda Masculina</button><button class="chip" data-n="outros">Outros</button><button class="chip" data-n="papelaria">Papelaria</button><button class="chip" data-n="pecas">Pecas</button><button class="chip" data-n="pet">Pet</button><button class="chip" data-n="saude">Saude</button><button class="chip" data-n="sustentavel">Sustentavel</button><button class="chip" data-n="viagem">Viagem</button></div>
   <div class="ordem">Ordenar:
     <button data-ord="dest" class="ativo">✨ Destaques</button>
     <button data-ord="vend">🏆 Mais vendidos</button>
@@ -163,6 +165,13 @@
 Comprando por eles você apoia o projeto. 💚 · 68105 ofertas</footer>
 <script>
 let P=[], NICHOS=[], q='', nicho='', ord='dest', visN=60;
+let FAVS=new Set(JSON.parse(localStorage.getItem('fav_mc')||'[]'));
+function isFav(t){return FAVS.has(t);}
+function toggleFav(idx,e){e.stopPropagation();
+  const t=P[idx][0];
+  if(FAVS.has(t)){FAVS.delete(t);e.currentTarget.textContent='🤍';}
+  else{FAVS.add(t);e.currentTarget.textContent='❤️';}
+  localStorage.setItem('fav_mc',JSON.stringify([...FAVS]));}
 const grid=document.getElementById('grid'), vazio=document.getElementById('vazio'),
       carregando=document.getElementById('carregando');
 const precoFmt=v=>'R$ '+v.toFixed(2).replace('.',',');
@@ -232,7 +241,8 @@ function cardHtml(p){
     +'<svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2C6.5 2 2 6.4 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.3c1.4.7 3 1.1 4.7 1.1 5.5 0 10-4.4 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.4 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.3-.1-1-.4-2-1.2-1.5-1.3-2.5-2.9-2.8-3.4-.2-.4 0-.5.1-.7.1-.1.2-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5-.1-.1-.5-1.2-.7-1.6-.2-.4-.4-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.8.7-.8 1.8s.8 2.1.9 2.2c.1.2 1.6 2.4 3.9 3.4 1.4.6 2 .7 2.7.6.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1 0-.1-.2-.2-.4-.2z"/></svg></a>';
   return '<article class="card" data-n="'+n+'" onclick="openDet('+idx+',event)" style="cursor:pointer">'
     +'<div class="foto"><img src="'+img+'" loading="lazy" alt=""'
-    +' onerror="this.closest(\'.card\').style.display=\'none\'">'+badge+nFotos+wa+'</div>'
+    +' onerror="this.closest(\'.card\').style.display=\'none\'">'+badge+nFotos+wa
+    +'<span class="fav" onclick="toggleFav('+idx+',event)">'+(isFav(t)?'❤️':'🤍')+'</span></div>'
     +'<div class="info"><h3>'+t+'</h3>'
     +'<div class="meta">'+vendTxt+'</div>'
     +'<div class="precos"><div class="linha">'
@@ -245,7 +255,8 @@ function cardHtml(p){
 function filtra(){
   const ql=q.toLowerCase().split(/\s+/).filter(Boolean);
   let arr=P;
-  if(nicho) arr=arr.filter(p=>p[2]===nicho);
+  if(nicho==='__fav') arr=arr.filter(p=>FAVS.has(p[0]));
+  else if(nicho) arr=arr.filter(p=>p[2]===nicho);
   if(ql.length) arr=arr.filter(p=>ql.every(t=>p[9].includes(t)));
   if(ord==='barato') arr=arr.slice().sort((a,b)=>a[5]-b[5]);
   else if(ord==='desc') arr=arr.slice().sort((a,b)=>b[8]-a[8]);
