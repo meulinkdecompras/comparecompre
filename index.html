@@ -6,7 +6,7 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
   body{background:#0f1419;color:#e8ecf1;overflow-x:hidden}
-  .banner{background:linear-gradient(90deg,#f59e0b,#ef4444,#db2777,#f59e0b);
+  .banner{position:relative;background:linear-gradient(90deg,#f59e0b,#ef4444,#db2777,#f59e0b);
           background-size:300% 100%;animation:desliza 7s linear infinite;
           padding:18px 12px 16px;text-align:center;color:#fff}
   .lojas{display:flex;gap:12px;justify-content:center;align-items:center;
@@ -38,6 +38,10 @@
   #btnFoto{position:absolute;right:12px;top:50%;transform:translateY(-50%);
            font-size:19px;cursor:pointer;opacity:.8}
   #btnFoto:hover{opacity:1}
+  #btnFavTop{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.35);
+      border:none;color:#fff;font-size:16px;padding:8px 14px;border-radius:999px;
+      cursor:pointer;backdrop-filter:blur(4px);z-index:5;font-weight:700}
+  #btnFavTop:hover{background:rgba(0,0,0,.55)}
   .chips{display:none;gap:7px;flex-wrap:wrap;padding:9px 2px 2px}
   .chips.abre{display:flex}
   #btnCat{flex:0 0 auto;padding:5px 12px;border-radius:999px;border:1px solid #33424f;
@@ -117,6 +121,7 @@
 <body>
 <div class="banner">
   <div class="lojas"><span class="ml">MERCADO LIVRE</span><i>×</i><span class="sh">SHOPEE</span></div>
+  <button id="btnFavTop" title="Minha lista de desejos">❤ <span id="favN">0</span></button>
   <b>🛒 🧒 DIA DAS CRIANÇAS + 10.10</b><small>brinquedos e presentes em dobro — compara e pega o menor preço 👇</small>
   <div class="trilha"><div class="fita"><a class="fitem" href="https://meli.la/2BYqahN" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_612037-MLA96134249037_102025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 96,22</span></a><a class="fitem" href="https://meli.la/1tWKEMk" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_740506-MLA99588742918_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/2ZDeXDL" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_802701-MLA114592682461_072026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/1z2EQD2" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_823658-MLB111400183586_052026-E-alca-corda-cordo-p-celular-universal-anti-perda-seguranca.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 17,90</span></a><a class="fitem" href="https://meli.la/2diUtvR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_943918-MLA118161782913_092026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 217,21</span></a><a class="fitem" href="https://meli.la/1KPxLTy" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_898813-MLA99592473832_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 19,00</span></a><a class="fitem" href="https://meli.la/21ydQE9" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_782524-MLB111971460798_062026-E--kit-2-suportes-celular-tablet-de-mesa-ajustavel-dobravel.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 20,99</span></a><a class="fitem" href="https://meli.la/1mAQAj6" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_796617-MLB71831694845_092023-E-kit-c12-utensilios-de-cozinha-silicone-cabo-madeira.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 39,99</span></a><a class="fitem" href="https://meli.la/2a18RLE" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_672845-MLA99620362959_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 49,99</span></a><a class="fitem" href="https://meli.la/1VSD5qD" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_756869-MLA113886361075_062026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 59,99</span></a><a class="fitem" href="https://meli.la/12fxZGV" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_693496-MLA99949977371_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 109,24</span></a><a class="fitem" href="https://meli.la/1HYHtRR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_779064-MLA99504067786_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 76,91</span></a><a class="fitem" href="https://meli.la/2BYqahN" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_612037-MLA96134249037_102025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 96,22</span></a><a class="fitem" href="https://meli.la/1tWKEMk" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_740506-MLA99588742918_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/2ZDeXDL" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_802701-MLA114592682461_072026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/1z2EQD2" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_823658-MLB111400183586_052026-E-alca-corda-cordo-p-celular-universal-anti-perda-seguranca.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 17,90</span></a><a class="fitem" href="https://meli.la/2diUtvR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_943918-MLA118161782913_092026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 217,21</span></a><a class="fitem" href="https://meli.la/1KPxLTy" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_898813-MLA99592473832_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 19,00</span></a><a class="fitem" href="https://meli.la/21ydQE9" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_782524-MLB111971460798_062026-E--kit-2-suportes-celular-tablet-de-mesa-ajustavel-dobravel.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 20,99</span></a><a class="fitem" href="https://meli.la/1mAQAj6" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_796617-MLB71831694845_092023-E-kit-c12-utensilios-de-cozinha-silicone-cabo-madeira.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 39,99</span></a><a class="fitem" href="https://meli.la/2a18RLE" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_672845-MLA99620362959_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 49,99</span></a><a class="fitem" href="https://meli.la/1VSD5qD" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_756869-MLA113886361075_062026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 59,99</span></a><a class="fitem" href="https://meli.la/12fxZGV" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_693496-MLA99949977371_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 109,24</span></a><a class="fitem" href="https://meli.la/1HYHtRR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_779064-MLA99504067786_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 76,91</span></a><a class="fitem" href="https://meli.la/2BYqahN" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_612037-MLA96134249037_102025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 96,22</span></a><a class="fitem" href="https://meli.la/1tWKEMk" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_740506-MLA99588742918_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/2ZDeXDL" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_802701-MLA114592682461_072026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 99,00</span></a><a class="fitem" href="https://meli.la/1z2EQD2" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_823658-MLB111400183586_052026-E-alca-corda-cordo-p-celular-universal-anti-perda-seguranca.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 17,90</span></a><a class="fitem" href="https://meli.la/2diUtvR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_943918-MLA118161782913_092026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 217,21</span></a><a class="fitem" href="https://meli.la/1KPxLTy" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_898813-MLA99592473832_122025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 19,00</span></a><a class="fitem" href="https://meli.la/21ydQE9" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_782524-MLB111971460798_062026-E--kit-2-suportes-celular-tablet-de-mesa-ajustavel-dobravel.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 20,99</span></a><a class="fitem" href="https://meli.la/1mAQAj6" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_796617-MLB71831694845_092023-E-kit-c12-utensilios-de-cozinha-silicone-cabo-madeira.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 39,99</span></a><a class="fitem" href="https://meli.la/2a18RLE" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_672845-MLA99620362959_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 49,99</span></a><a class="fitem" href="https://meli.la/1VSD5qD" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_756869-MLA113886361075_062026-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 59,99</span></a><a class="fitem" href="https://meli.la/12fxZGV" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_693496-MLA99949977371_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 109,24</span></a><a class="fitem" href="https://meli.la/1HYHtRR" target="_blank" rel="sponsored noopener"><img src="https://http2.mlstatic.com/D_Q_NP_2X_779064-MLA99504067786_112025-E.webp" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"><span>R$ 76,91</span></a></div></div>
 </div>
@@ -171,7 +176,8 @@ function toggleFav(idx,e){e.stopPropagation();
   const t=P[idx][0];
   if(FAVS.has(t)){FAVS.delete(t);e.currentTarget.textContent='🤍';}
   else{FAVS.add(t);e.currentTarget.textContent='❤️';}
-  localStorage.setItem('fav_mc',JSON.stringify([...FAVS]));}
+  localStorage.setItem('fav_mc',JSON.stringify([...FAVS]));
+  document.getElementById('favN').textContent=FAVS.size;}
 const grid=document.getElementById('grid'), vazio=document.getElementById('vazio'),
       carregando=document.getElementById('carregando');
 const precoFmt=v=>'R$ '+v.toFixed(2).replace('.',',');
@@ -256,7 +262,19 @@ function cardHtml(p){
 function filtra(){
   const ql=q.toLowerCase().split(/\s+/).filter(Boolean);
   let arr=P;
-  if(nicho==='__fav') arr=arr.filter(p=>FAVS.has(p[0]));
+  if(nicho==='__fav'){
+    const favProds=arr.filter(p=>FAVS.has(p[0]));
+    const kws=new Set();
+    favProds.forEach(p=>p[0].toLowerCase().split(/\W+/)
+      .filter(w=>w.length>3).forEach(w=>kws.add(w)));
+    const rel=P.filter(p=>!FAVS.has(p[0])).map(p=>{
+        const t=p[0].toLowerCase();let s=0;
+        kws.forEach(w=>{if(t.includes(w))s++;});
+        return [p,s];
+      }).filter(x=>x[1]>0)
+       .sort((a,b)=>b[1]-a[1]||b[0][8]-a[0][8]).slice(0,40).map(x=>x[0]);
+    arr=favProds.concat(rel);
+  }
   else if(nicho) arr=arr.filter(p=>p[2]===nicho);
   if(ql.length) arr=arr.filter(p=>ql.every(t=>p[9].includes(t)));
   if(ord==='barato') arr=arr.slice().sort((a,b)=>a[5]-b[5]);
@@ -318,6 +336,13 @@ document.getElementById('foto').addEventListener('change',e=>{
   img.src=URL.createObjectURL(f);
   e.target.value='';
 });
+document.getElementById('btnFavTop').addEventListener('click',()=>{
+  nicho='__fav';closeDet();
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('ativo'));
+  const fc=document.querySelector('.chip[data-n="__fav"]');
+  if(fc)fc.classList.add('ativo');
+  renderiza();window.scrollTo({top:0,behavior:'smooth'});
+});
 document.getElementById('btnCat').addEventListener('click',()=>{
   const chips=document.querySelector('.chips');
   chips.classList.toggle('abre');
@@ -340,6 +365,7 @@ fetch('produtos.json.gz')
   .pipeThrough(new DecompressionStream('gzip'))).text())
 .then(txt=>{const d=JSON.parse(txt);
   P=d.p; P.forEach((p,i)=>p.push(i));  // índice estável p/ a galeria
+  document.getElementById('favN').textContent=FAVS.size;
   carregando.textContent=''; renderiza();
 }).catch(()=>{carregando.textContent='erro carregando ofertas';});
 </script></body></html>
