@@ -290,8 +290,8 @@ document.getElementById('foto').addEventListener('change',e=>{
     // compara hamming com os phash dos produtos
     const scored=P.map((x,i)=>{
         const h=x[12];if(!h||h==='sem')return null;
-        let dist=0,a=BigInt('0x'+meuHash),b=BigInt('0x'+h),x=a^b;
-        while(x){dist++;x&=x-1n;}
+        let dist=0,dif=BigInt('0x'+meuHash)^BigInt('0x'+h);
+        while(dif){dist++;dif&=dif-1n;}
         return [i,dist];
       }).filter(Boolean).sort((a,b)=>a[1]-b[1]);
     const ok=scored.filter(s=>s[1]<=24).slice(0,12);
